@@ -14,14 +14,15 @@
     </header>
     <main>
         <section id="incomeSection">
-            <div id="incomeInput">
+            <form id="incomeInput">
                 <h1>Income</h1>
-                <label for="sourceName">Name or Description</label>
-                <input type="text" id="sourceName">
+                <label for="incomeName">Name or Description</label>
+                <input type="text" id="incomeName" onblur="validateName()" placeholder="45 characters max" required>
+                <span id="warning"></span>
                 <label for="amountInput">Amount <span id="afterTax">(after tax)</span></label>
                 <input type="number" id="amountInput">
-                <button id="appendIncome">+ Add Income</button>
-            </div>
+                <button type="submit" id="appendIncome">+ Add Income</button>
+            </form>
             <div id="incomeList"></div>
         </section>
 
@@ -30,7 +31,7 @@
             <div id="expenseInput">
                 <h1>Expenses</h1>
                 <label for="expenseName">Name or Description</label>
-                <input type="text" id="expenseName">
+                <input type="text" id="expenseName" onblur="validateName()" placeholder="45 characters max" required>
                 <label for="costInput">Cost <span id="afterTax">(per month)</span></label>
                 <input type="number" id="costInput">
                 <button id="appendExpense">+ Add Expense</button>
