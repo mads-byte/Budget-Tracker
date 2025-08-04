@@ -13,10 +13,10 @@
         <h1>Your Budget Planner</h1>
     </header>
     <main>
-        <section class="incomeSection">
+        <section id="incomeSection">
             <div id="incomeInput">
                 <h1>Income</h1>
-                <label for="sourceName">Source</label>
+                <label for="sourceName">Name or Description</label>
                 <input type="text" id="sourceName">
                 <label for="amountInput">Amount <span id="afterTax">(after tax)</span></label>
                 <input type="number" id="amountInput">
@@ -24,9 +24,41 @@
             </div>
             <div id="incomeList"></div>
         </section>
-        <div>
-            <button>Back</button>
-            <button>Next</button>
+
+
+        <section id="expenseSection">
+            <div id="expenseInput">
+                <h1>Expenses</h1>
+                <label for="expenseName">Name or Description</label>
+                <input type="text" id="expenseName">
+                <label for="costInput">Cost <span id="afterTax">(per month)</span></label>
+                <input type="number" id="costInput">
+                <button id="appendExpense">+ Add Expense</button>
+            </div>
+            <div id="expenseList"></div>
+        </section>
+
+        <section id="summarySection">
+            <div id="incomeSummary">
+                <h1>Monthly Income <span id="monthlyIncome"></span></h1>
+            </div>
+            <div id="expenseSummary">
+                <h1>Monthly Expenses <span id="monthlyExpenses"></span></h1>
+            </div>
+            <div id="netIncomeSummary">
+                <h1>Net Monthly Income <span id="netIncome"></span></h1>
+            </div>
+
+            <div id="advice"></div>
+
+        </section>
+
+
+
+
+        <div id="navButtons">
+            <button id="backBtn">Back</button>
+            <button id="nextBtn">Next</button>
         </div>
 
     </main>
