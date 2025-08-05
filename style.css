@@ -9,6 +9,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-#warning {
+#warning,
+#warning2 {
     color: red;
 }
