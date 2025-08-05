@@ -10,6 +10,7 @@ input::-webkit-inner-spin-button {
 }
 
 #warning,
-#warning2 {
+#warning2,
+#amountWarning {
     color: red;
 }
