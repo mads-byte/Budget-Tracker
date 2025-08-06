@@ -11,6 +11,15 @@ input::-webkit-inner-spin-button {
 
 #warning,
 #warning2,
-#amountWarning {
+#amountWarning,
+#costWarning,
+#requiredNameWarning {
     color: red;
+}
+
+.pie-chart {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(red 0% 25%, blue 25% 50%, green 50% 100%);
 }

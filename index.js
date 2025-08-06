@@ -21,9 +21,12 @@ const expenseNameInput = document.getElementById('expenseName');
 const costInput = document.getElementById('costInput')
 const warning2 = document.getElementById('warning2');
 const costWarning = document.getElementById('costWarning');
+const expenseList = document.getElementById('expenseList');
+const appendExpenseBtn = document.getElementById('appendExpense');
 //end of expense section variables
 
 const monthlyIncomeDisplay = document.getElementById('monthlyIncome');
+const monthlyExpenseDisplay = document.getElementById('monthlyExpenses');
 
 
 const numRegex = /^\d+$/;
@@ -69,8 +72,8 @@ class BudgetIncome extends Budget {
         if (name.trim().length < 1) {
             warning.textContent = "Please enter a name or description";
         }
-        else if (stringAmount.length === 0) {
-            amountWarning.textContent = "Please enter a valid number";
+        else if (stringAmount.length === 0 || stringAmount.includes("-")) {
+            amountWarning.textContent = "Please enter a valid (positive) number";
         }
         else if (firstNameInput.value.trim().length === 0) {
             requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
@@ -97,8 +100,39 @@ class BudgetIncome extends Budget {
 };
 
 class BudgetExpenses extends BudgetIncome {
-
-}
+    expenseNames = [];
+    costAmounts = [];
+    appendExpense(name, cost) {
+        let stringCost = cost.toString();
+        if (name.trim().length < 1) {
+            warning2.textContent = "Please enter a name or description";
+        }
+        else if (stringCost.length === 0 || stringCost.includes("-")) {
+            costWarning.textContent = "Please enter a valid (positive) number";
+        }
+        else if (firstNameInput.value.trim().length === 0) {
+            requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
+        }
+        else if (stringCost.length >= 9) {
+            costWarning.textContent = "Amount exceeds maximum";
+        }
+        else {
+            const newExpense = document.createElement("li");
+            newExpense.textContent = `${expenseNameInput.value} $${costInput.value}`;
+            expenseList.appendChild(newExpense);
+            this.expenseNames.push(name);
+            this.costAmounts.push(cost);
+            costWarning.textContent = "";
+            warning2.textContent = "";
+            requiredNameWarning.textContent = "";
+        }
+    }
+    expenseSum() {
+        let expenseExpression = this.costAmounts.join("+");
+        let expenseTotal = eval(expenseExpression);
+        monthlyExpenseDisplay.textContent = `${expenseTotal}`;
+    }
+};
 
 
 incomeNameInput.addEventListener('input', () => {
@@ -121,6 +155,7 @@ nameSubmitBtn.addEventListener("click", () => {
     yourBudget = new Budget(fname, lname);
     yourBudget.appendName(fname, lname);
     yourBudgetIncome = new BudgetIncome();
+    yourBudgetExpenses = new BudgetExpenses();
 });
 
 appendIncomeBtn.addEventListener("click", () => {
@@ -135,45 +170,14 @@ appendIncomeBtn.addEventListener("click", () => {
     yourBudgetIncome.incomeSum();
 });
 
-
-
-
-
-
-/*appendIncome() {
-
-       appendIncomeBtn.addEventListener('click', () => {
-           let stringAmount = amountInput.value.toString();
-           if (incomeNameInput.value.trim().length < 1) {
-               warning.textContent = "Please enter a name or description";
-           }
-           else if (stringAmount.length === 0) {
-               amountWarning.textContent = "Please enter a valid number";
-           }
-           else {
-               const newIncome = document.createElement("li");
-               newIncome.textContent = `${incomeNameInput.value} $${amountInput.value}`;
-               incomeList.appendChild(newIncome);
-           }
-       });
-   }
-
-
-   
- let stringAmount = amount.toString();
-        if (name.trim().length < 1) {
-            warning.textContent = "Please enter a name or description";
-        }
-        else if (stringAmount.length === 0) {
-            amountWarning.textContent = "Please enter a valid number";
-        }
-        else {
-            const newIncome = document.createElement("li");
-            newIncome.textContent = `${incomeNameInput.value} $${amountInput.value}`;
-            incomeList.appendChild(newIncome);
-        }
-
-*/
-
-
-
+appendExpenseBtn.addEventListener("click", () => {
+    const exName = expenseNameInput.value;
+    const exAmount = costInput.value;
+    yourBudgetExpenses.appendExpense(exName, exAmount);
+    console.log(yourBudgetIncome.expenseNames);
+    console.log(yourBudgetIncome.costAmounts);
+    if (yourBudgetExpenses.expenseNames.length >= 30) {
+        appendExpenseBtn.disabled = true;
+    };
+    yourBudgetExpenses.expenseSum();
+})
