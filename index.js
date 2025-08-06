@@ -102,6 +102,7 @@ class BudgetIncome extends Budget {
 class BudgetExpenses extends BudgetIncome {
     expenseNames = [];
     costAmounts = [];
+    expenseExpression = [];
     appendExpense(name, cost) {
         let stringCost = cost.toString();
         if (name.trim().length < 1) {
@@ -121,15 +122,17 @@ class BudgetExpenses extends BudgetIncome {
             newExpense.textContent = `${expenseNameInput.value} $${costInput.value}`;
             expenseList.appendChild(newExpense);
             this.expenseNames.push(name);
-            this.costAmounts.push(cost);
+            this.costAmounts.push(parseFloat(cost));
             costWarning.textContent = "";
             warning2.textContent = "";
             requiredNameWarning.textContent = "";
         }
     }
     expenseSum() {
-        let expenseExpression = this.costAmounts.join("+");
-        let expenseTotal = eval(expenseExpression);
+        let expenseTotal = 0;
+        for (let i = 0; i < this.costAmounts.length; i++) {
+            expenseTotal += this.costAmounts[i];
+        }
         monthlyExpenseDisplay.textContent = `${expenseTotal}`;
     }
 };
@@ -162,22 +165,22 @@ appendIncomeBtn.addEventListener("click", () => {
     const incName = incomeNameInput.value;
     const incAmount = amountInput.value;
     yourBudgetIncome.appendIncome(incName, incAmount);
+    yourBudgetIncome.incomeSum();
     console.log(yourBudgetIncome.incomeNames);
     console.log(yourBudgetIncome.incomeAmounts);
     if (yourBudgetIncome.incomeNames.length >= 30) {
         appendIncomeBtn.disabled = true;
     };
-    yourBudgetIncome.incomeSum();
 });
 
 appendExpenseBtn.addEventListener("click", () => {
     const exName = expenseNameInput.value;
     const exAmount = costInput.value;
     yourBudgetExpenses.appendExpense(exName, exAmount);
-    console.log(yourBudgetIncome.expenseNames);
-    console.log(yourBudgetIncome.costAmounts);
+    yourBudgetExpenses.expenseSum();
+    console.log(yourBudgetExpenses.expenseNames);
+    console.log(yourBudgetExpenses.costAmounts);
     if (yourBudgetExpenses.expenseNames.length >= 30) {
         appendExpenseBtn.disabled = true;
     };
-    yourBudgetExpenses.expenseSum();
 })
