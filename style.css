@@ -23,3 +23,13 @@ input::-webkit-inner-spin-button {
     border-radius: 50%;
     background: conic-gradient(blue 0%, blue 100%, red 0%, red 0%);
 }
+
+#incomeKey {
+    color: white;
+    background-color: red;
+}
+
+#expenseKey {
+    color: white;
+    background-color: blue;
+}

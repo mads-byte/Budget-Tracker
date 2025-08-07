@@ -29,6 +29,8 @@ const monthlyIncomeDisplay = document.getElementById('monthlyIncome');
 const monthlyExpenseDisplay = document.getElementById('monthlyExpenses');
 const monthlyNetIncome = document.getElementById('netIncome');
 const pieChart = document.getElementById('pieChart');
+const advice = document.getElementById('advice');
+const summarizeBtn = document.getElementById('summarizeBtn');
 const numRegex = /^\d+$/;
 let yourBudget, yourBudgetIncome, yourBudgetExpenses, yourBudgetSummary;
 let incomeTotal
@@ -40,8 +42,6 @@ let finalNetPercent
 function updateNetIncome() {
     incomeTotal = yourBudgetIncome.incomeSum();
     expenseTotal = yourBudgetExpenses.expenseSum();
-    console.log("incomeTotal:", incomeTotal);
-    console.log("expenseTotal:", expenseTotal);
     netIncome = incomeTotal - expenseTotal;
     monthlyNetIncome.textContent = netIncome;
     let expensePercent = expenseTotal / incomeTotal;
@@ -68,6 +68,7 @@ class Budget {
             incomeNameInput.disabled = false;
             expenseNameInput.disabled = false;
             costInput.disabled = false;
+            summarizeBtn.disabled = false;
         }
     }
 };
@@ -149,6 +150,24 @@ class BudgetExpenses extends BudgetIncome {
     }
 };
 
+class BudgetSummary extends BudgetExpenses {
+    incomeLeft = "You have some income left over. That's great! You can spend this on hobbies and non essentials or even invest.";
+    incomeNegative = "You are using 100% or more of your income on needs which isn't sustainable. Try to cut some non essential expenses.";
+    incomeNoSavings = "Try to include savings in your budget next time!";
+    //adviceOptions = [this.incomeLeft, this.incomeNegative, this.incomeNoSavings];
+    summaryMessage() {
+        if (!yourBudgetExpenses.expenseNames.includes('savings') && !yourBudgetExpenses.expenseNames.includes('Savings') && finalExpensePercent < 100) {
+            advice.textContent = `${this.incomeLeft} ${this.incomeNoSavings}`
+        }
+        else if (finalExpensePercent >= 100) {
+            advice.textContent = `${this.incomeNegative}`;
+        }
+        else {
+            advice.textContent = `${this.incomeLeft}`
+        }
+    }
+};
+
 
 expenseNameInput.addEventListener('input', () => {
     if (expenseNameInput.value.length >= 45) {
@@ -156,12 +175,12 @@ expenseNameInput.addEventListener('input', () => {
     }
 });
 
-
 incomeNameInput.addEventListener('input', () => {
     if (incomeNameInput.value.length >= 45) {
         warning.textContent = "character limit reached";
     }
 });
+
 firstNameInput.addEventListener('blur', () => {
     if (firstNameInput.value.trim().length == 0) {
         requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button"
@@ -178,6 +197,7 @@ nameSubmitBtn.addEventListener("click", () => {
     yourBudget.appendName(fname, lname);
     yourBudgetIncome = new BudgetIncome();
     yourBudgetExpenses = new BudgetExpenses();
+    yourBudgetSummary = new BudgetSummary();
 });
 
 appendIncomeBtn.addEventListener("click", () => {
@@ -204,6 +224,12 @@ appendExpenseBtn.addEventListener("click", () => {
         appendExpenseBtn.disabled = true;
     };
     updateNetIncome();
+});
+
+summarizeBtn.addEventListener("click", () => {
+    if (incomeTotal > 0) {
+        yourBudgetSummary.summaryMessage();
+    }
 });
 
 
