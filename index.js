@@ -27,32 +27,34 @@ const appendExpenseBtn = document.getElementById('appendExpense');
 
 const monthlyIncomeDisplay = document.getElementById('monthlyIncome');
 const monthlyExpenseDisplay = document.getElementById('monthlyExpenses');
-
-
+const monthlyNetIncome = document.getElementById('netIncome');
+const pieChart = document.getElementById('pieChart');
 const numRegex = /^\d+$/;
-//let yourBudget;
+let yourBudget, yourBudgetIncome, yourBudgetExpenses, yourBudgetSummary;
+let incomeTotal
+let expenseTotal
+let netIncome
+let finalExpensePercent
+let finalNetPercent
 
-
-
-expenseNameInput.addEventListener('input', () => {
-    if (expenseNameInput.value.length >= 45) {
-        warning2.textContent = "character limit reached";
-    }
-});
-
-
-
-function validateExpenseName() {
-    if (incomeNameInput.value.trim() < 1) {
-        warning2.textContent = "Please enter a name or description";
-        return false;
-    }
-    else if (incomeNameInput.value.length >= 1) {
-        warning2.textContent = "";
-        return false;
-    };
+function updateNetIncome() {
+    incomeTotal = yourBudgetIncome.incomeSum();
+    expenseTotal = yourBudgetExpenses.expenseSum();
+    console.log("incomeTotal:", incomeTotal);
+    console.log("expenseTotal:", expenseTotal);
+    netIncome = incomeTotal - expenseTotal;
+    monthlyNetIncome.textContent = netIncome;
+    let expensePercent = expenseTotal / incomeTotal;
+    let expensePercentStr = expensePercent.toFixed(2);
+    finalExpensePercent = parseFloat(expensePercentStr) * 100;
+    let netPercent = netIncome / incomeTotal;
+    let netPercentStr = netPercent.toFixed(2);
+    finalNetPercent = parseFloat(netPercentStr) * 100;
+    console.log(finalExpensePercent);
+    console.log(finalNetPercent);
+    let pieChartString = `conic-gradient(blue 0%, blue ${finalExpensePercent}%, red 0%, red 0%)`;
+    pieChart.style.background = pieChartString;
 };
-
 
 class Budget {
     constructor(firstName, lastName) {
@@ -60,7 +62,13 @@ class Budget {
         this.lastName = lastName;
     }
     appendName(firstName, lastName) {
-        userNameDisplay.textContent = `${firstName} ${lastName}`;
+        if (firstName.trim().length > 0) {
+            userNameDisplay.textContent = `${firstName} ${lastName}`;
+            amountInput.disabled = false;
+            incomeNameInput.disabled = false;
+            expenseNameInput.disabled = false;
+            costInput.disabled = false;
+        }
     }
 };
 
@@ -79,23 +87,26 @@ class BudgetIncome extends Budget {
             requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
         }
         else if (stringAmount.length >= 9) {
-            amountWarning.textContent = "Amount exceeds maximum";
+            amountWarning.textContent = "Amount exceeds maximum length";
         }
         else {
             const newIncome = document.createElement("li");
-            newIncome.textContent = `${incomeNameInput.value} $${amountInput.value}`;
+            newIncome.textContent = `${incomeNameInput.value} $${parseFloat(amount)}`;
             incomeList.appendChild(newIncome);
             this.incomeNames.push(name);
-            this.incomeAmounts.push(amount);
+            this.incomeAmounts.push(parseFloat(amount));
             amountWarning.textContent = "";
             warning.textContent = "";
             requiredNameWarning.textContent = "";
         }
     }
     incomeSum() {
-        let incomeExpression = this.incomeAmounts.join("+");
-        let incomeTotal = eval(incomeExpression);
+        let incomeTotal = 0;
+        for (let i = 0; i < this.incomeAmounts.length; i++) {
+            incomeTotal += this.incomeAmounts[i];
+        }
         monthlyIncomeDisplay.textContent = incomeTotal;
+        return incomeTotal;
     }
 };
 
@@ -115,11 +126,11 @@ class BudgetExpenses extends BudgetIncome {
             requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
         }
         else if (stringCost.length >= 9) {
-            costWarning.textContent = "Amount exceeds maximum";
+            costWarning.textContent = "Amount exceeds maximum length";
         }
         else {
             const newExpense = document.createElement("li");
-            newExpense.textContent = `${expenseNameInput.value} $${costInput.value}`;
+            newExpense.textContent = `${expenseNameInput.value} $${parseFloat(cost)}`;
             expenseList.appendChild(newExpense);
             this.expenseNames.push(name);
             this.costAmounts.push(parseFloat(cost));
@@ -134,8 +145,16 @@ class BudgetExpenses extends BudgetIncome {
             expenseTotal += this.costAmounts[i];
         }
         monthlyExpenseDisplay.textContent = `${expenseTotal}`;
+        return expenseTotal;
     }
 };
+
+
+expenseNameInput.addEventListener('input', () => {
+    if (expenseNameInput.value.length >= 45) {
+        warning2.textContent = "character limit reached";
+    }
+});
 
 
 incomeNameInput.addEventListener('input', () => {
@@ -171,6 +190,7 @@ appendIncomeBtn.addEventListener("click", () => {
     if (yourBudgetIncome.incomeNames.length >= 30) {
         appendIncomeBtn.disabled = true;
     };
+    updateNetIncome();
 });
 
 appendExpenseBtn.addEventListener("click", () => {
@@ -183,4 +203,8 @@ appendExpenseBtn.addEventListener("click", () => {
     if (yourBudgetExpenses.expenseNames.length >= 30) {
         appendExpenseBtn.disabled = true;
     };
-})
+    updateNetIncome();
+});
+
+
+

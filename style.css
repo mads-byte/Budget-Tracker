@@ -17,9 +17,9 @@ input::-webkit-inner-spin-button {
     color: red;
 }
 
-.pie-chart {
-    width: 100px;
-    height: 100px;
+#pieChart {
+    width: 340px;
+    height: 340px;
     border-radius: 50%;
-    background: conic-gradient(red 0% 25%, blue 25% 50%, green 50% 100%);
+    background: conic-gradient(blue 0%, blue 100%, red 0%, red 0%);
 }

@@ -25,10 +25,11 @@
         <section id="incomeSection">
             <h1>Income (Per Month)</h1>
             <label for="incomeName">Name or Description</label>
-            <input type="text" id="incomeName" autocomplete="off" maxlength="45" required>
+            <input type="text" id="incomeName" autocomplete="off" maxlength="45" placeholder='"Salary"' required
+                disabled>
             <span id="warning"></span>
             <label for="amountInput">Amount <span id="afterTax">(after tax)</span></label>
-            <input type="number" id="amountInput" autocomplete="off" required>
+            <input type="number" id="amountInput" autocomplete="off" placeholder='"4500"' required disabled>
             <span id="amountWarning"></span>
             <button id="appendIncome">+ Add Income</button>
             <ul id="incomeList"></ul>
@@ -38,10 +39,10 @@
         <section id="expenseSection">
             <h1>Expenses (Per Month)</h1>
             <label for="expenseName">Name or Description</label>
-            <input type="text" id="expenseName" autocomplete="off" maxlength="45" required>
+            <input type="text" id="expenseName" autocomplete="off" maxlength="45" required disabled>
             <span id="warning2"></span>
             <label for="costInput">Cost <span id="afterTax">(per month)</span></label>
-            <input type="number" id="costInput" autocomplete="off" required>
+            <input type="number" id="costInput" autocomplete="off" required disabled>
             <span id="costWarning"></span>
             <button id="appendExpense">+ Add Expense</button>
             <ul id="expenseList"></ul>
@@ -49,19 +50,19 @@
 
         <section id="summarySection">
             <div id="incomeSummary">
-                <h1>Monthly Income $<span id="monthlyIncome"></span></h1>
+                <h1>Monthly Income $ <span id="monthlyIncome"></span></h1>
             </div>
             <div id="expenseSummary">
-                <h1>Monthly Expenses -<span id="monthlyExpenses"></span></h1>
+                <h1>Monthly Expenses - <span id="monthlyExpenses"></span></h1>
             </div>
             <div id="netIncomeSummary">
                 <h1>Net Monthly Income <span id="netIncome"></span></h1>
             </div>
-
+            <div id="pieChart"></div>
             <div id="advice"></div>
 
         </section>
-        <div class="pie-chart"></div>
+
     </main>
     <script src="index.js"></script>
 </body>
