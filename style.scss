@@ -1,4 +1,6 @@
-@import "style.css";
+$primary-color: rgb(9, 176, 137);
+$expense-color: rgb(3, 87, 184);
+
 
 * {
     margin: 0;
@@ -23,15 +25,15 @@ input::-webkit-inner-spin-button {
     width: 340px;
     height: 340px;
     border-radius: 50%;
-    background: conic-gradient(blue 0%, blue 100%, red 0%, red 0%);
+    background: conic-gradient($expense-color 0%, $expense-color 100%, $primary-color 0%, $primary-color 0%);
 }
 
 #incomeKey {
     color: white;
-    background-color: red;
+    background-color: $primary-color;
 }
 
 #expenseKey {
     color: white;
-    background-color: blue;
+    background-color: $expense-color;
 }

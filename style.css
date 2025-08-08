@@ -1,12 +1,12 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #warning,
@@ -14,22 +14,24 @@ input::-webkit-inner-spin-button {
 #amountWarning,
 #costWarning,
 #requiredNameWarning {
-    color: red;
+  color: red;
 }
 
 #pieChart {
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    background: conic-gradient(blue 0%, blue 100%, red 0%, red 0%);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: conic-gradient(rgb(3, 87, 184) 0%, rgb(3, 87, 184) 100%, rgb(9, 176, 137) 0%, rgb(9, 176, 137) 0%);
 }
 
 #incomeKey {
-    color: white;
-    background-color: red;
+  color: white;
+  background-color: rgb(9, 176, 137);
 }
 
 #expenseKey {
-    color: white;
-    background-color: blue;
+  color: white;
+  background-color: rgb(3, 87, 184);
 }
+
+/*# sourceMappingURL=style.css.map */

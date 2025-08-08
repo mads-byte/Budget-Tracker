@@ -156,7 +156,7 @@ class BudgetSummary extends BudgetExpenses { ////this will be used to instantiat
         console.log(finalExpensePercent);
         console.log(finalNetPercent);
         //template literal that dynamically updates the blue section of the pie chart to reflect expense percentage.
-        let pieChartString = `conic-gradient(blue 0%, blue ${finalExpensePercent}%, red 0%, red 0%)`;
+        let pieChartString = `conic-gradient(rgb(3, 87, 184) 0%, rgb(3, 87, 184) ${finalExpensePercent}%, rgb(9, 176, 137) 0%, rgb(9, 176, 137) 0%)`;
         pieChart.style.background = pieChartString; //sets pie chart styles to the above template literal
     };
     /*summaryMessage handles logic to decide which summary message to display based on user's financial situation*/
@@ -217,6 +217,7 @@ appendIncomeBtn.addEventListener("click", () => {
         appendIncomeBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
+    advice.textContent = "";
 });
 
 appendExpenseBtn.addEventListener("click", () => {
@@ -235,7 +236,8 @@ appendExpenseBtn.addEventListener("click", () => {
 adviceBtn.addEventListener("click", () => {
     if (incomeTotal > 0) { //only alows button to function if the user has income
         yourBudgetSummary.summaryMessage();
-    }
+    };
+    advice.textContent = "";
 });
 
 
