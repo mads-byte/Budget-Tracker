@@ -139,7 +139,7 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
 
 class BudgetSummary extends BudgetExpenses { ////this will be used to instantiate a BudgetSummary object containing summary related functionality
     //Lines 143-145 contain options for messages that will be displayed upon summarizing/analyzing the budget
-    incomeLeft = `You have ${incomeTotal} left over. That's great! You can invest or spend this on hobbies and non essentials.`;
+    incomeLeft = `You have income left over. That's great! You can invest or spend this on hobbies and non essentials.`;
     incomeNegative = "You are using 100% or more of your income on expenses which isn't sustainable. Try to cut some non essential expenses.";
     incomeNoSavings = "Try to include savings in your budget next time!";
     updateNetIncome() {
@@ -217,6 +217,7 @@ appendIncomeBtn.addEventListener("click", () => {
         appendIncomeBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
+    advice.textContent = "Advice:"; //Resets the advice section when a new item is appended
 });
 
 appendExpenseBtn.addEventListener("click", () => {
@@ -230,6 +231,7 @@ appendExpenseBtn.addEventListener("click", () => {
         appendExpenseBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
+    advice.textContent = "Advice:"; //Resets the advice section when a new item is appended
 });
 
 adviceBtn.addEventListener("click", () => {
