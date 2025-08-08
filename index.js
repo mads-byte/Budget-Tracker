@@ -82,7 +82,7 @@ class BudgetIncome extends Budget { //this will be used to instantiate a BudgetI
             const newIncome = document.createElement("li");
             newIncome.textContent = `${incomeNameInput.value} $${parseFloat(amount)}`;
             incomeList.appendChild(newIncome);
-            this.incomeNames.push(name);
+            this.incomeNames.push(name.trim());
             this.incomeAmounts.push(parseFloat(amount));
             amountWarning.textContent = ""; //removes warning messages if input is valid
             warning.textContent = ""; //removes warning messages if input is valid
@@ -120,7 +120,7 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
             const newExpense = document.createElement("li");
             newExpense.textContent = `${expenseNameInput.value} $${parseFloat(cost)}`;
             expenseList.appendChild(newExpense);
-            this.expenseNames.push(name);
+            this.expenseNames.push(name.trim());
             this.costAmounts.push(parseFloat(cost));
             costWarning.textContent = "";
             warning2.textContent = "";
@@ -139,7 +139,7 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
 
 class BudgetSummary extends BudgetExpenses { ////this will be used to instantiate a BudgetSummary object containing summary related functionality
     //Lines 143-145 contain options for messages that will be displayed upon summarizing/analyzing the budget
-    incomeLeft = "You have some income left over. That's great! You can spend this on hobbies and non essentials or even invest.";
+    incomeLeft = `You have ${incomeTotal} left over. That's great! You can invest or spend this on hobbies and non essentials.`;
     incomeNegative = "You are using 100% or more of your income on expenses which isn't sustainable. Try to cut some non essential expenses.";
     incomeNoSavings = "Try to include savings in your budget next time!";
     updateNetIncome() {
@@ -160,15 +160,15 @@ class BudgetSummary extends BudgetExpenses { ////this will be used to instantiat
         pieChart.style.background = pieChartString; //sets pie chart styles to the above template literal
     };
     /*summaryMessage handles logic to decide which summary message to display based on user's financial situation*/
+    //checks if the user has savings listed in their budget expenses and if they are using all of their income on expenses
     summaryMessage() {
-        //Lines 166-168 check if the user has savings in their budget
         if (!yourBudgetExpenses.expenseNames.includes('savings') && !yourBudgetExpenses.expenseNames.includes('Savings') && finalExpensePercent < 100) {
             advice.textContent = `${this.incomeLeft} ${this.incomeNoSavings}`
         }
         else if (finalExpensePercent >= 100) {
             advice.textContent = `${this.incomeNegative}`;
         }
-        else {
+        else if (yourBudgetExpenses.expenseNames.includes('savings') || yourBudgetExpenses.expenseNames.includes('Savings') && finalExpensePercent < 100) {
             advice.textContent = `${this.incomeLeft}`
         }
     }
