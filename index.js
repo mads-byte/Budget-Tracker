@@ -34,7 +34,7 @@ const monthlyNetIncome = document.getElementById('netIncome');
 const pieChart = document.getElementById('pieChart');
 const advice = document.getElementById('advice');
 const adviceBtn = document.getElementById('adviceBtn');
-//let yourBudget, yourBudgetIncome, yourBudgetExpenses, yourBudgetSummary;
+
 let incomeTotal
 let expenseTotal
 let netIncome
