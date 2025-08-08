@@ -33,8 +33,8 @@ const monthlyExpenseDisplay = document.getElementById('monthlyExpenses');
 const monthlyNetIncome = document.getElementById('netIncome');
 const pieChart = document.getElementById('pieChart');
 const advice = document.getElementById('advice');
-const summarizeBtn = document.getElementById('summarizeBtn');
-let yourBudget, yourBudgetIncome, yourBudgetExpenses, yourBudgetSummary;
+const adviceBtn = document.getElementById('adviceBtn');
+//let yourBudget, yourBudgetIncome, yourBudgetExpenses, yourBudgetSummary;
 let incomeTotal
 let expenseTotal
 let netIncome
@@ -43,25 +43,25 @@ let finalNetPercent
 //end of summary section variables
 
 
-//This is the constructor that creates a budget object
+//This is the constructor that creates a budget object on which all other objects are based
 class Budget {
     constructor(firstName, lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    appendName(firstName, lastName) { //this methhod appends the name AND enables the following buttons and input
-        if (firstName.trim().length > 0) { //this checks if the name string contains characters after spaces are trimmed off
-            userNameDisplay.textContent = `${firstName} ${lastName}`;
+    appendName(firstName, lastName) { //this methhod appends the name and enables the following buttons and input
+        if (firstName.trim().length > 0) { //checks if input is empty after trimming spaces off both ends of the string
+            userNameDisplay.textContent = `, ${firstName} ${lastName}`;
             amountInput.disabled = false;
             incomeNameInput.disabled = false;
             expenseNameInput.disabled = false;
             costInput.disabled = false;
-            summarizeBtn.disabled = false;
+            adviceBtn.disabled = false;
         }
     }
 };
 
-class BudgetIncome extends Budget { //this will be used to instantiate a BudgetIncome object
+class BudgetIncome extends Budget { //this will be used to instantiate a BudgetIncome object containing income related functionality
     incomeNames = []; //this initializes an empty array to which each name/description will be pushed
     incomeAmounts = []; //this initializes an empty array to which each income amount will be pushed
     appendIncome(name, amount) {  //validates and appends income names/amounts to the screen while pushing them to the arrays
@@ -99,10 +99,9 @@ class BudgetIncome extends Budget { //this will be used to instantiate a BudgetI
     }
 };
 
-class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a BudgetExpenses object
+class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a BudgetExpenses object containing expense related functionality
     expenseNames = []; //this initializes an empty array to which each name/description will be pushed
     costAmounts = []; //this initializes an empty array to which each expense cost will be pushed
-    //expenseExpression = [];
     appendExpense(name, cost) {  //this method essentially functions similarly to the appendIncome method except it targets variables in the expense section
         let stringCost = cost.toString();
         if (name.trim().length < 1) {
@@ -138,27 +137,31 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
     }
 };
 
-class BudgetSummary extends BudgetExpenses { //this will be used to instantiate a BudgetSummary object
+class BudgetSummary extends BudgetExpenses { ////this will be used to instantiate a BudgetSummary object containing summary related functionality
+    //Lines 143-145 contain options for messages that will be displayed upon summarizing/analyzing the budget
     incomeLeft = "You have some income left over. That's great! You can spend this on hobbies and non essentials or even invest.";
-    incomeNegative = "You are using 100% or more of your income on needs which isn't sustainable. Try to cut some non essential expenses.";
+    incomeNegative = "You are using 100% or more of your income on expenses which isn't sustainable. Try to cut some non essential expenses.";
     incomeNoSavings = "Try to include savings in your budget next time!";
     updateNetIncome() {
         incomeTotal = yourBudgetIncome.incomeSum();
         expenseTotal = yourBudgetExpenses.expenseSum();
-        netIncome = incomeTotal - expenseTotal;
-        monthlyNetIncome.textContent = netIncome;
-        let expensePercent = expenseTotal / incomeTotal;
-        let expensePercentStr = expensePercent.toFixed(2);
-        finalExpensePercent = parseFloat(expensePercentStr) * 100;
+        netIncome = incomeTotal - expenseTotal; //calculates the income left after expenses
+        monthlyNetIncome.textContent = netIncome; //updates the DOM (displays the result on the page)
+        let expensePercent = expenseTotal / incomeTotal; //calculates how much of income is taken up by expenses
+        let expensePercentStr = expensePercent.toFixed(2); //allows a value with digits up to two places after the decimal
+        finalExpensePercent = parseFloat(expensePercentStr) * 100; //converts value to a number and multiples by 100 to give a usable percentage
         let netPercent = netIncome / incomeTotal;
         let netPercentStr = netPercent.toFixed(2);
         finalNetPercent = parseFloat(netPercentStr) * 100;
         console.log(finalExpensePercent);
         console.log(finalNetPercent);
+        //template literal that dynamically updates the blue section of the pie chart to reflect expense percentage.
         let pieChartString = `conic-gradient(blue 0%, blue ${finalExpensePercent}%, red 0%, red 0%)`;
-        pieChart.style.background = pieChartString;
+        pieChart.style.background = pieChartString; //sets pie chart styles to the above template literal
     };
+    /*summaryMessage handles logic to decide which summary message to display based on user's financial situation*/
     summaryMessage() {
+        //Lines 166-168 check if the user has savings in their budget
         if (!yourBudgetExpenses.expenseNames.includes('savings') && !yourBudgetExpenses.expenseNames.includes('Savings') && finalExpensePercent < 100) {
             advice.textContent = `${this.incomeLeft} ${this.incomeNoSavings}`
         }
@@ -172,20 +175,20 @@ class BudgetSummary extends BudgetExpenses { //this will be used to instantiate 
 };
 
 
-expenseNameInput.addEventListener('input', () => {
+expenseNameInput.addEventListener('input', () => { //allows input to continuously check character limit and respond accordingly
     if (expenseNameInput.value.length >= 45) {
         warning2.textContent = "character limit reached";
     }
 });
 
-incomeNameInput.addEventListener('input', () => {
+incomeNameInput.addEventListener('input', () => { //allows input to continuously check character limit and respond accordingly
     if (incomeNameInput.value.length >= 45) {
         warning.textContent = "character limit reached";
     }
 });
 
-firstNameInput.addEventListener('blur', () => {
-    if (firstNameInput.value.trim().length == 0) {
+firstNameInput.addEventListener('blur', () => { //warns user of empty name field upon clicking out of the input field
+    if (firstNameInput.value.trim().length == 0) { //checks if input is empty after trimming spaces off both ends of the string
         requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button"
     }
     else {
@@ -193,7 +196,7 @@ firstNameInput.addEventListener('blur', () => {
     }
 });
 
-nameSubmitBtn.addEventListener("click", () => {
+nameSubmitBtn.addEventListener("click", () => { //Instantiates all necessary objects for functionality 
     let fname = firstNameInput.value;
     let lname = lastNameInput.value;
     yourBudget = new Budget(fname, lname);
@@ -204,33 +207,33 @@ nameSubmitBtn.addEventListener("click", () => {
 });
 
 appendIncomeBtn.addEventListener("click", () => {
-    const incName = incomeNameInput.value;
-    const incAmount = amountInput.value;
+    const incName = incomeNameInput.value; //initializes a variable based on user input to be passed into the appendExpense method
+    const incAmount = amountInput.value; //initializes a variable based on user input to be passed into the appendExpense method
     yourBudgetIncome.appendIncome(incName, incAmount);
     yourBudgetIncome.incomeSum();
     console.log(yourBudgetIncome.incomeNames);
     console.log(yourBudgetIncome.incomeAmounts);
-    if (yourBudgetIncome.incomeNames.length >= 30) {
+    if (yourBudgetIncome.incomeNames.length >= 30) { //Does not allow user to append more than 30 incomes
         appendIncomeBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
 });
 
 appendExpenseBtn.addEventListener("click", () => {
-    const exName = expenseNameInput.value;
-    const exAmount = costInput.value;
+    const exName = expenseNameInput.value; //initializes a variable based on user input to be passed into the appendExpense method
+    const exAmount = costInput.value; //initializes a variable based on user input to be passed into the appendExpense method
     yourBudgetExpenses.appendExpense(exName, exAmount);
     yourBudgetExpenses.expenseSum();
     console.log(yourBudgetExpenses.expenseNames);
     console.log(yourBudgetExpenses.costAmounts);
-    if (yourBudgetExpenses.expenseNames.length >= 30) {
+    if (yourBudgetExpenses.expenseNames.length >= 30) { //Does not allow user to append more than 30 expenses
         appendExpenseBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
 });
 
-summarizeBtn.addEventListener("click", () => {
-    if (incomeTotal > 0) {
+adviceBtn.addEventListener("click", () => {
+    if (incomeTotal > 0) { //only alows button to function if the user has income
         yourBudgetSummary.summaryMessage();
     }
 });

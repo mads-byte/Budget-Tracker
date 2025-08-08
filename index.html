@@ -20,7 +20,7 @@
             <label for="lastNameInput">Last Name</label>
             <input type="text" id="lastNameInput" autocomplete="off" maxlength="20" placeholder="Optional">
             <button id="nameSubmit">Enter Name</button>
-            <h1>Hello <span id="userNameDisplay"></span>, Welcome to Your Budget Planner</h1>
+            <h1>Welcome to Your Budget Planner<span id="userNameDisplay"></span></h1>
         </section>
         <section id="incomeSection">
             <h1>Income (Per Month)</h1>
@@ -39,10 +39,10 @@
         <section id="expenseSection">
             <h1>Expenses (Per Month)</h1>
             <label for="expenseName">Name or Description</label>
-            <input type="text" id="expenseName" autocomplete="off" maxlength="45" required disabled>
+            <input type="text" id="expenseName" autocomplete="off" maxlength="45" placeholder='"Groceries"' disabled>
             <span id="warning2"></span>
             <label for="costInput">Cost <span id="afterTax">(per month)</span></label>
-            <input type="number" id="costInput" autocomplete="off" required disabled>
+            <input type="number" id="costInput" autocomplete="off" placeholder='"320"' required disabled>
             <span id="costWarning"></span>
             <button id="appendExpense">+ Add Expense</button>
             <ul id="expenseList"></ul>
@@ -65,9 +65,9 @@
             <div id="incomeKey">
                 <p>Red = Discretionary Income - This is income left over after all your expenses are paid</p>
             </div>
-            <button id="summarizeBtn" disabled>Summarize Your Budget</button>
-            <div id="summary">
-                <p>Summary: <span id="advice"></span></p>
+            <button id="adviceBtn" disabled>Generate Your Financial Advice</button>
+            <div>
+                <p id="advice">Advice:</p>
             </div>
 
         </section>
