@@ -1,0 +1,37 @@
+@import "style.css";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#warning,
+#warning2,
+#amountWarning,
+#costWarning,
+#requiredNameWarning {
+    color: red;
+}
+
+#pieChart {
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: conic-gradient(blue 0%, blue 100%, red 0%, red 0%);
+}
+
+#incomeKey {
+    color: white;
+    background-color: red;
+}
+
+#expenseKey {
+    color: white;
+    background-color: blue;
+}
