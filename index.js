@@ -75,7 +75,7 @@ class BudgetIncome extends Budget { //this will be used to instantiate a BudgetI
         else if (firstNameInput.value.trim().length === 0) { // blocks empty input from being processed
             requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
         }
-        else if (stringAmount.length > 8) { //blocks numbers that exceed 8 digits in length from being appended, pushed, or processed
+        else if (stringAmount.length > 10) { //blocks numbers that exceed 8 digits in length from being appended, pushed, or processed
             amountWarning.textContent = "Amount exceeds maximum length";
         }
         else { //handles both appending content to the screen and pushing it to the appropriate array
@@ -113,7 +113,7 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
         else if (firstNameInput.value.trim().length === 0) {
             requiredNameWarning.textContent = "Please Enter a name and click the Enter Name button";
         }
-        else if (stringCost.length > 8) {
+        else if (stringCost.length > 10) {
             costWarning.textContent = "Amount exceeds maximum length";
         }
         else {
@@ -137,9 +137,8 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
     }
 };
 
-class BudgetSummary extends BudgetExpenses { ////this will be used to instantiate a BudgetSummary object containing summary related functionality
-    //Lines 143-145 contain options for messages that will be displayed upon summarizing/analyzing the budget
-    incomeLeft = `You have ${incomeTotal} left over. That's great! You can invest or spend this on hobbies and non essentials.`;
+class BudgetSummary extends BudgetExpenses {
+    incomeLeft = `You have ${netIncome} left over. That's great! You can invest or spend this on hobbies and non essentials.`;
     incomeNegative = "You are using 100% or more of your income on expenses which isn't sustainable. Try to cut some non essential expenses.";
     incomeNoSavings = "Try to include savings in your budget next time!";
     updateNetIncome() {
@@ -158,9 +157,11 @@ class BudgetSummary extends BudgetExpenses { ////this will be used to instantiat
         //template literal that dynamically updates the blue section of the pie chart to reflect expense percentage.
         let pieChartString = `conic-gradient(rgb(3, 87, 184) 0%, rgb(3, 87, 184) ${finalExpensePercent}%, rgb(9, 176, 137) 0%, rgb(9, 176, 137) 0%)`;
         pieChart.style.background = pieChartString; //sets pie chart styles to the above template literal
+        return netIncome
     };
     /*summaryMessage handles logic to decide which summary message to display based on user's financial situation*/
     //checks if the user has savings listed in their budget expenses and if they are using all of their income on expenses
+
     summaryMessage() {
         if (!yourBudgetExpenses.expenseNames.includes('savings') && !yourBudgetExpenses.expenseNames.includes('Savings') && finalExpensePercent < 100) {
             advice.textContent = `${this.incomeLeft} ${this.incomeNoSavings}`
@@ -231,13 +232,13 @@ appendExpenseBtn.addEventListener("click", () => {
         appendExpenseBtn.disabled = true;
     };
     yourBudgetSummary.updateNetIncome();
+    advice.textContent = "";
 });
 
 adviceBtn.addEventListener("click", () => {
     if (incomeTotal > 0) { //only alows button to function if the user has income
         yourBudgetSummary.summaryMessage();
     };
-    advice.textContent = "";
 });
 
 
