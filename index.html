@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -13,38 +17,46 @@
         <h1>Your Budget Planner</h1>
     </header>
     <main>
-        <section id="userNameSection">
-            <p id="requiredNameWarning"></p>
-            <label for="firstNameInput">First Name</label>
-            <input type="text" id="firstNameInput" autocomplete="off" maxlength="20" placeholder="*Required Field">
-            <label for="lastNameInput">Last Name</label>
-            <input type="text" id="lastNameInput" autocomplete="off" maxlength="20" placeholder="Optional">
-            <button id="nameSubmit">Enter Name</button>
-            <h1>Welcome to Your Budget Planner<span id="userNameDisplay"></span></h1>
+        <section class="userNameArea" id="userNameSection">
+            <div>
+                <p class="warning" id="requiredNameWarning"></p>
+            </div>
+            <div class="userNameArea"><label for="firstNameInput">First Name</label></div>
+            <div class="userNameArea"><input type="text" id="firstNameInput" autocomplete="off" maxlength="20"
+                    placeholder="*Required Field">
+            </div>
+            <div class="userNameArea"><label for="lastNameInput">Last Name</label></div>
+            <div class="userNameArea"><input type="text" id="lastNameInput" autocomplete="off" maxlength="20"
+                    placeholder="Optional"></div>
+            <div class="userNameArea"><button id="nameSubmit">Enter Name</button></div>
+            <h1 class="userNameArea">Welcome to Your Budget Planner<span id="userNameDisplay"></span></h1>
         </section>
         <section id="incomeSection">
-            <h1>Income (Per Month)</h1>
-            <label for="incomeName">Name or Description</label>
-            <input type="text" id="incomeName" autocomplete="off" maxlength="45" placeholder='"Salary"' required
+            <h1 class="incomeArea">Income (Per Month)</h1>
+            <label class="incomeArea" for="incomeName">Name or Description</label>
+            <input class="incomeArea" type="text" id="incomeName" autocomplete="off" maxlength="45"
+                placeholder='"Salary"' required disabled>
+            <span class="warning" id="warning"></span>
+            <label class="incomeArea" for="amountInput">Amount <span id="afterTax">(after tax)</span></label>
+            <input class="incomeArea" type="number" id="amountInput" autocomplete="off" placeholder='"4500"' required
                 disabled>
-            <span id="warning"></span>
-            <label for="amountInput">Amount <span id="afterTax">(after tax)</span></label>
-            <input type="number" id="amountInput" autocomplete="off" placeholder='"4500"' required disabled>
-            <span id="amountWarning"></span>
-            <button id="appendIncome">+ Add Income</button>
+            <span class="incomeArea" class="warning" id="amountWarning"></span>
+            <button class="incomeArea" id="appendIncome">+ Add Income</button>
             <ul id="incomeList"></ul>
         </section>
 
 
         <section id="expenseSection">
-            <h1>Expenses (Per Month)</h1>
-            <label for="expenseName">Name or Description</label>
-            <input type="text" id="expenseName" autocomplete="off" maxlength="45" placeholder='"Groceries"' disabled>
-            <span id="warning2"></span>
-            <label for="costInput">Cost <span id="afterTax">(per month)</span></label>
-            <input type="number" id="costInput" autocomplete="off" placeholder='"320"' required disabled>
-            <span id="costWarning"></span>
-            <button id="appendExpense">+ Add Expense</button>
+            <h1 class="expenseArea">Expenses (Per Month)</h1>
+            <label class="expenseArea" for="expenseName">Name or Description</label>
+            <input class="expenseArea" class="expenseArea" type="text" id="expenseName" autocomplete="off"
+                maxlength="45" placeholder='"Groceries"' disabled>
+            <span class="warning" id="warning2"></span>
+            <label class="expenseArea" for="costInput">Cost <span id="afterTax">(per month)</span></label>
+            <input class="expenseArea" type="number" id="costInput" autocomplete="off" placeholder='"320"' required
+                disabled>
+            <span class="warning" id="costWarning"></span>
+            <button class="expenseArea" id="appendExpense">+ Add Expense</button>
             <ul id="expenseList"></ul>
         </section>
 
@@ -59,11 +71,13 @@
                 <h1>Net Monthly Income <span id="netIncome"></span></h1>
             </div>
             <div id="pieChart"></div>
-            <div id="expenseKey">
-                <p>Blue = Expenses - This is the amount of your total income that all of your expenses take up</p>
+            <div>
+                <p id="expenseKey">Blue = Expenses - This is the amount of your total income that all of your expenses
+                    take up</p>
             </div>
-            <div id="incomeKey">
-                <p>Green = Discretionary Income - This is income left over after all your expenses are paid</p>
+            <div>
+                <p id="incomeKey">Green = Discretionary Income - This is income left over after all your expenses are
+                    paid</p>
             </div>
             <button id="adviceBtn" disabled>Generate Your Financial Advice</button>
             <div>

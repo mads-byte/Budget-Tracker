@@ -1,11 +1,33 @@
-$primary-color: rgb(9, 176, 137);
-$expense-color: rgb(3, 87, 184);
+$income-color: #09B089;
+$primary-color: #0357B8;
+$default-font: "Rubik", sans-serif;
 
+@mixin gradient($firstColor, $secondColor) {
+    background-image: linear-gradient(to right, $firstColor, $secondColor);
+}
 
 * {
     margin: 0;
     padding: 0;
+    font-family: $default-font;
 }
+
+body {
+    @include gradient(#ABDEC8, #9CB1E6);
+}
+
+header {
+    font-family: $default-font;
+    text-align: center;
+    font-size: 6vw;
+    margin-top: 25px;
+}
+
+#userNameSection {
+    width: 100%;
+    text-align: center;
+}
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -13,27 +35,45 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-#warning,
-#warning2,
-#amountWarning,
-#costWarning,
-#requiredNameWarning {
+.warning {
     color: red;
 }
 
+label {
+    font-size: 6vw;
+}
+
+.userNameArea,
+.incomeArea,
+.expenseArea {
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+
 #pieChart {
-    width: 340px;
-    height: 340px;
+    width: 95vw;
+    height: 95vw;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 30px;
     border-radius: 50%;
-    background: conic-gradient($expense-color 0%, $expense-color 100%, $primary-color 0%, $primary-color 0%);
+    background: conic-gradient($primary-color 0%, $primary-color 100%, $income-color 0%, $income-color 0%);
 }
 
 #incomeKey {
     color: white;
-    background-color: $primary-color;
+    background-color: $income-color;
 }
 
 #expenseKey {
     color: white;
-    background-color: $expense-color;
+    background-color: $primary-color;
+}
+
+#summarySection {
+    margin-top: 20px;
 }

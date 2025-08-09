@@ -138,7 +138,7 @@ class BudgetExpenses extends BudgetIncome { //this will be used to instantiate a
 };
 
 class BudgetSummary extends BudgetExpenses {
-    incomeLeft = `You have ${netIncome} left over. That's great! You can invest or spend this on hobbies and non essentials.`;
+    incomeLeft = `You have income left over. That's great! You can invest or spend this on hobbies and non essentials.`;
     incomeNegative = "You are using 100% or more of your income on expenses which isn't sustainable. Try to cut some non essential expenses.";
     incomeNoSavings = "Try to include savings in your budget next time!";
     updateNetIncome() {

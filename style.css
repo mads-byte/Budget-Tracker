@@ -1,6 +1,23 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  background-image: linear-gradient(to right, #ABDEC8, #9CB1E6);
+}
+
+header {
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  font-size: 6vw;
+  margin-top: 25px;
+}
+
+#userNameSection {
+  width: 100%;
+  text-align: center;
 }
 
 input::-webkit-outer-spin-button,
@@ -9,29 +26,45 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#warning,
-#warning2,
-#amountWarning,
-#costWarning,
-#requiredNameWarning {
+.warning {
   color: red;
 }
 
+label {
+  font-size: 6vw;
+}
+
+.userNameArea,
+.incomeArea,
+.expenseArea {
+  display: block;
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+}
+
 #pieChart {
-  width: 340px;
-  height: 340px;
+  width: 95vw;
+  height: 95vw;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 30px;
   border-radius: 50%;
-  background: conic-gradient(rgb(3, 87, 184) 0%, rgb(3, 87, 184) 100%, rgb(9, 176, 137) 0%, rgb(9, 176, 137) 0%);
+  background: conic-gradient(#0357B8 0%, #0357B8 100%, #09B089 0%, #09B089 0%);
 }
 
 #incomeKey {
   color: white;
-  background-color: rgb(9, 176, 137);
+  background-color: #09B089;
 }
 
 #expenseKey {
   color: white;
-  background-color: rgb(3, 87, 184);
+  background-color: #0357B8;
+}
+
+#summarySection {
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
