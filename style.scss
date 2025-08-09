@@ -6,6 +6,28 @@ $default-font: "Rubik", sans-serif;
     background-image: linear-gradient(to right, $firstColor, $secondColor);
 }
 
+@mixin inputStyle {
+    width: 80vw;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 24px;
+    text-align: center;
+    border-style: none;
+}
+
+@mixin buttonStyle {
+    width: 60vw;
+    height: fit-content;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-style: none;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    background-color: #7fbea29a;
+    box-shadow: (5px 5px 10px rgba(0, 0, 0, 0.5));
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -37,26 +59,62 @@ input::-webkit-inner-spin-button {
 
 .warning {
     color: red;
+    font-size: 6vw;
+    text-align: center;
+    margin: auto;
 }
 
 label {
     font-size: 6vw;
 }
 
+input {
+    @include inputStyle();
+}
+
+button {
+    @include buttonStyle();
+}
+
+ul {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 50px;
+    font-size: 6vw;
+}
+
+li::marker {
+    content: "🔹 ";
+}
+
 .userNameArea,
 .incomeArea,
-.expenseArea {
+.expenseArea,
+.summaryArea {
     display: block;
     text-align: center;
     margin: auto;
     margin-top: 20px;
 }
 
+.adviceArea {
+    margin-top: 20px;
+    height: 20vh;
+    font-size: 5vw;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
+#incomeSummary,
+#expenseSummary,
+#netIncomeSummary {
+    font-size: 13px;
+    padding-left: 2vw;
+}
 
 #pieChart {
-    width: 95vw;
-    height: 95vw;
+    width: 90vw;
+    height: 90vw;
     margin: auto;
     margin-top: 40px;
     margin-bottom: 30px;
@@ -76,4 +134,142 @@ label {
 
 #summarySection {
     margin-top: 20px;
+}
+
+@media screen and (min-width: 600px) {
+    * {
+        font-size: 5.5vw;
+    }
+
+    label,
+    #afterTax {
+        font-size: 4vw;
+    }
+
+    .warning {
+        color: red;
+        font-size: 4vw;
+    }
+
+    #greeting,
+    #userNameDisplay {
+        font-size: 5vw;
+        margin-top: 10vh;
+    }
+
+    #incomeSummary,
+    #expenseSummary,
+    #netIncomeSummary {
+        padding-left: 2vw;
+    }
+
+    input {
+        width: 60vw;
+        font-size: 4vw;
+        height: 40px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    button {
+        font-size: 4vw;
+    }
+
+    ul {
+        padding-left: 90px;
+        text-align: center;
+        width: 30vw;
+        margin: auto;
+    }
+
+    #incomeSection {
+        margin-top: 5vh;
+    }
+
+    #pieChart {
+        width: 70vw;
+        height: 70vw;
+    }
+
+    #expenseKey,
+    #incomeKey {
+        font-size: 4vw;
+        width: 60vw;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+
+    #titleHeader {
+        font-size: 5vw;
+    }
+
+    label,
+    input,
+    button,
+    p,
+    #advice,
+    #incomeKey,
+    #expenseKey {
+        font-size: 2vw;
+    }
+
+    .userNameArea {
+        margin-top: 0px;
+    }
+
+    .adviceArea {
+        width: 70vw;
+    }
+
+    .warning {
+        color: red;
+        font-size: 3vw;
+    }
+
+    #greeting,
+    #userNameDisplay {
+        font-size: 3vw;
+        margin-top: 10vh;
+    }
+
+    button {
+        width: 30vw;
+    }
+
+    input {
+        width: 40vw;
+    }
+
+    h1 {
+        font-size: 3vw;
+    }
+
+    li {
+        font-size: 2vw;
+    }
+
+    #incomeSummary,
+    #expenseSummary,
+    #netIncomeSummary {
+        text-align: center;
+    }
+
+    #monthlyIncome,
+    #monthlyExpenses,
+    #netIncome {
+        font-size: 3vw;
+    }
+
+    .usernameArea,
+    .expenseArea,
+    .incomeArea {
+        margin-top: 3vh;
+    }
+
+    #pieChart {
+        width: 40vw;
+        height: 40vw;
+    }
 }
