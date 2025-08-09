@@ -7,7 +7,7 @@
 - Each income item MUST have a name/description and an amount to be appended to the list <br>
 
 - Enter a name and a cost for each expense and click "Add Expense"
-- Each expense item MUST have a name/description and a cost to be appended to the list
+- Each expense item MUST have a name/description and a cost to be appended to the list  
 Side note: Each amount and cost can be a maximum of 10 digits long to be appended. (This applies to decimals as well) <br>
 
 - The total income, expenses, and net income will be dynamically updated with each new income/expense <br>
